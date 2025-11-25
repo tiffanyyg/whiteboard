@@ -1,11 +1,21 @@
-version: "3.9"
-
 services:
   redis:
     image: redis:7-alpine
     container_name: redis
     ports:
       - "6379:6379"
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: whiteboard
+      POSTGRES_PASSWORD: whiteboard
+      POSTGRES_DB: whiteboarddb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   board1:
     build:
@@ -15,8 +25,14 @@ services:
       - INSTANCE_NAME=whiteboard_app_1
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=whiteboard
+      - POSTGRES_PASSWORD=whiteboard
+      - POSTGRES_DB=whiteboarddb
     depends_on:
       - redis
+      - postgres
     ports:
       - "5001:8080"
 
@@ -28,8 +44,14 @@ services:
       - INSTANCE_NAME=whiteboard_app_2
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=whiteboard
+      - POSTGRES_PASSWORD=whiteboard
+      - POSTGRES_DB=whiteboarddb
     depends_on:
       - redis
+      - postgres
     ports:
       - "5002:8080"
 
@@ -41,7 +63,16 @@ services:
       - INSTANCE_NAME=whiteboard_app_3
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=whiteboard
+      - POSTGRES_PASSWORD=whiteboard
+      - POSTGRES_DB=whiteboarddb
     depends_on:
       - redis
+      - postgres
     ports:
       - "5003:8080"
+
+volumes:
+  pgdata:
