@@ -4,9 +4,9 @@ const { Pool } = pkg;
 const pool = new Pool({
   host: process.env.PG_HOST || "postgres",
   port: process.env.PG_PORT || 5432,
-  user: process.env.PG_USER || "whiteboard",
-  password: process.env.PG_PASSWORD || "whiteboard",
-  database: process.env.PG_DATABASE || "whiteboarddb",
+  user: process.env.PG_USER || "tiffany",
+  password: process.env.PG_PASSWORD || "whiteboard123",
+  database: process.env.PG_DATABASE || "whiteboard_db",
 });
 
 export async function saveBoard(json) {
