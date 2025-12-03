@@ -1,4 +1,4 @@
-import { createTLStore, defaultShapeUtils, defaultAppState } from '@tldraw/tldraw'
+import { createTLStore, defaultShapeUtils } from '@tldraw/tldraw'
 
 export function createWebSocketStore() {
   const store = createTLStore({
